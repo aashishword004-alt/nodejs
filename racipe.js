@@ -1,11 +1,5 @@
 var http = require('http');
-//localhost:3000 (home)
-//localhost:3000/aboutus (aboutus)
-//localhost:3000/contactus (contactus)
-//localhost:3000/products (products)
-//create server 
 var server = http.createServer(function (request, response) {
-    //code in this function will run for each and every requested
     let url = request.url;
     console.log(url);
     response.writeHead(200, { 'content-type': 'text/html' });
