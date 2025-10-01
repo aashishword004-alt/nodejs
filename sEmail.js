@@ -1,6 +1,8 @@
 let http = require('http');
 let ema = require("./module/email")
 
+// create a function to handel response and request 
+
 function Reciver(req, res){
     res.writeHead(200, { "content-Type": "text/html" });
 
@@ -11,6 +13,7 @@ function Reciver(req, res){
 
 }
 
+// call in Reciver  indeside in server  
 let server = http.createServer(Reciver);
 server.listen(5000);
 console.log('server is start');
