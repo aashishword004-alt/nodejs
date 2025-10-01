@@ -1,4 +1,15 @@
-module.exports.form="From:ahsihs@gmail.com";
-module.exports.to="To:user@gamil.com";
-module.exports.sub="Subject:Interview";
-module.exports.detail="Information:Hi Dear maneger i am looking for position of Mern stage devloper "
+function Email(rec,sub,mess){
+    this.rec=rec;
+    this.sub=sub;
+    this.mess=mess;
+
+    this.Send = function()
+    {
+        console.log("Reciver: " + this.rec);
+        console.log("Subject: " + this.sub);
+        console.log("Message: " + this.mess);
+    };
+
+
+}
+module.exports={Email};
