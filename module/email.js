@@ -1,12 +1,4 @@
-function Sendemail(reciver,subject,info)
-{
-    this.reciv=reciver;
-    this.sub=subject;
-    this.inf=info;
-    let Send = function (){
-        console.log('Hiyy I am Ashis ', reciver);
-        console.log('what going on ', subject);
-        console.log('tacke your your health ', info);
-    }
-}
-module.exports={Sendemail};
+module.exports.form="From:ahsihs@gmail.com";
+module.exports.to="To:user@gamil.com";
+module.exports.sub="Subject:Interview";
+module.exports.detail="Information:Hi Dear maneger i am looking for position of Mern stage devloper "
