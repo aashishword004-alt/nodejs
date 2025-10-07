@@ -1,6 +1,5 @@
 module.exports = [
   {
-    busName: "Royal Express",
     from: "Ahmedabad",
     to: "Mumbai",
     departureTime: "08:00 PM",
@@ -10,7 +9,7 @@ module.exports = [
     rent: 1200
   },
   {
-    busName: "Cityline Travels",
+    
     from: "Surat",
     to: "Pune",
     departureTime: "09:30 PM",
@@ -20,7 +19,6 @@ module.exports = [
     rent: 900
   },
   {
-    busName: "Express Rider",
     from: "Rajkot",
     to: "Vadodara",
     departureTime: "07:00 AM",
@@ -30,7 +28,7 @@ module.exports = [
     rent: 750
   },
   {
-    busName: "Budget Travels",
+
     from: "Mumbai",
     to: "Nashik",
     departureTime: "01:00 PM",
