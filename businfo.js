@@ -11,6 +11,8 @@ let server = http.createServer(function (req, res) {
 
     let output = businf;
 
+    // false condition busrun whene the bus not found 
+    // not use else if  
 
     output = output.filter(bus => {
         if (qurystring.source && bus.from !== qurystring.source) return false;
@@ -21,12 +23,12 @@ let server = http.createServer(function (req, res) {
 
         if (qurystring.seatType && bus.seatType !== qurystring.seatType) return false;
 
-        if (qurystring.rent && bus.rent != Number(qurystring.rent)) return false;
+        if (qurystring.rent && bus.rent != (qurystring.rent)) return false;
 
-        return true; //
+        return true;
     });
 
-    res.write(JSON.stringify(output, null, 2));
+    res.write(JSON.stringify(output));
     res.end();
 });
 
