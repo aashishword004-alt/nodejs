@@ -30,7 +30,7 @@ let server = http.createServer((req,res) =>{
      res.writeHead(200,{"Content-type":"text/html"});
      if(error)
      {
-        filename="/site/404.html"
+        filename="site/404.html"
 
      }
      else{
