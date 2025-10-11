@@ -28,15 +28,7 @@ let server = http.createServer((req,res) =>{
     }
      fs.readFile(filename , (error  , data) =>{
      res.writeHead(200,{"Content-type":"text/html"});
-     if(error)
-     {
-        filename="site/404.html"
-
-     }
-     else{
-
          res.write(data);
-     }
     res.end();
 
    })    
