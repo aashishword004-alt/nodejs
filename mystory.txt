@@ -1,0 +1,28 @@
+Name: undefined
+Email: undefined
+Mobile: undefined
+Story: undefined
+info.name = "Ashish" 
+info.email = "aashishparar789p@gmail.com" 
+info.mobileno = "aashishparar789p@gmail.com" 
+info.story  = " i Hate Relationship"
+name = "Ashish" 
+.email = "aashishparar789p@gmail.com" 
+.mobileno = "aashishparar789p@gmail.com" 
+.story  = " i Hate Relationship"
+name = "Ashish" 
+.email = "aashishparar789p@gmail.com" 
+.mobileno = "aashishparar789p@gmail.com" 
+.story  = " i Hate Relationship"
+name = "Ashish" 
+.email = "aashishparar789p@gmail.com" 
+.mobileno = "aashishparar789p@gmail.com" 
+.story  = " i Hate Relationship"
+name = "Ashish" 
+.email = "aashishparar789p@gmail.com" 
+.mobileno = "aashishparar789p@gmail.com" 
+.story  = " i Hate Relationship"
+name = "Ashish" 
+.email = "aashishparar789p@gmail.com" 
+.mobileno = "9824047910" 
+.story  = " i Hate Relationship"
