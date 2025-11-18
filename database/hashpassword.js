@@ -1,12 +1,12 @@
-const security = require("/nodejs/security");
+const security = require("../lib/security");
 
 async  function Myfunction()
 {
     var password = "apple";
-    var hash_password = await security.getpassword(password);
-    console.log(hash_password);
+    var hashpassword = await security.getpassword(password);
+    console.log(hashpassword);
 
-    var response = await security.conformpassword("banana",hash_password);
+    var response = await security.conformpassword("banana",hashpassword);
     console.log(response);
 }
 
