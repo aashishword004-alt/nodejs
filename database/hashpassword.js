@@ -1,4 +1,4 @@
-const security = require("../lib/security");
+const security = require("../lib/securityy");
 
 async  function Myfunction()
 {
@@ -10,4 +10,4 @@ async  function Myfunction()
     console.log(response);
 }
 
-Myfunction()
+Myfunction();
