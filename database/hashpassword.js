@@ -6,8 +6,10 @@ async  function Myfunction()
     var hashpassword = await security.getpassword(password);
     console.log(hashpassword);
 
-    var response = await security.conformpassword("banana",hashpassword);
+    var response = await security.conformpassword("apple",hashpassword);
     console.log(response);
+
+   
 }
 
 Myfunction();
