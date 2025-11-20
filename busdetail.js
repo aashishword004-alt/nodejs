@@ -659,6 +659,7 @@ let server = http.createServer((req, res) => {
     if (path === "/"){
         res.write(output);
         
+        
     }
     res.end();
 
