@@ -1,20 +1,17 @@
 var http = require("http");
 let sequrity = require("./lib/securityy");
 
-async function hadlePassdword(req, res) {
-    let password = await sequrity.generatePassword();
-    sequrity.getpassword(password).then((hash) => {
-        res.write(password);
-        res.write("\n");
-        res.write(hash);
+function hadlePassdword(req, res) {
+    let password = sequrity.generatePassword();
+    sequrity.getpassword(password).then(function (conformpassword) {
         console.log(password);
-        console.log("////");
-        console.log(hash);
+        res.writeHead(200, { "Content-type": "text/plain" });
+        res.write(password  + " \n " + conformpassword);
+        res.end();
     });
 
 
-    res.writeHead(200, { "Content-type": "text/plain" });
-    res.end();
+
 
 }
 
