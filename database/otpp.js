@@ -8,7 +8,6 @@ let password = require("../lib/otp");
   console.log(output);
   res.write(output);
   res.end()
-
  }
 
 
