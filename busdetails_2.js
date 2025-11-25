@@ -658,21 +658,27 @@ let server = http.createServer((req, res) => {
     let search = url.parse(req.url, true);
     let path = search.pathname;
     let data = search.query;
-    let output ="";
+    let output = "";
     if (path === "/routes" && data.source === undefined && data.destination === undefined) {
-        
+
         output = JSON.stringify(info);
     }
-    else  if (path === "/routes" && data.source !== undefined && data.destination !== undefined )
-        {
-            output = info.filter((item) =>{
-                if(item.source === data.source && item.destination === data.source);
+    else if (path === "/routes" && data.source !== undefined && data.destination !== undefined && data.journeyType !== undefined) {
+        output = info.filter((item) => {
+            if (item.source.toLocaleLowerCase() === data.source.toLocaleLowerCase() && item.destination.toLocaleLowerCase() === data.destination.toLocaleLowerCase() && item.journeyType.toLocaleLowerCase() === data.journeyType.toLocaleLowerCase())
                 return item;
-            });
-            output = JSON.stringify(output);
-        }
-        res.write(output);
-        res.end();
+        });
+        output = JSON.stringify(output);
+    }
+    else if (path === "/routes" && data.source.toLocaleLowerCase() !== undefined && data.destination !== undefined) {
+        output = info.filter((item) => {
+            if (item.source.toLocaleLowerCase() === data.source.toLocaleLowerCase() && item.destination.toLocaleLowerCase() === data.destination.toLocaleLowerCase())
+                return item;
+        });
+        output = JSON.stringify(output);
+    }
+    res.write(output);
+    res.end();
 
 });
 
