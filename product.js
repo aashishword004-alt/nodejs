@@ -1,4 +1,5 @@
 let http = require("http");
+let url = require("url");
 
 let product = [
   { "name": "Wireless Bluetooth Headphones", "price": 2499, "details": "Over-ear design with deep bass and long battery life." },
@@ -56,12 +57,30 @@ let product = [
 
 let server = http.createServer((req,res) =>{
     res.writeHead(200,{"content-type": "application/json"});
-    let path = req.url
+    let search = url.parse(req.url,true);
+    let path = search.pathname;
+    let data = search.query;
     let output = ""
-    if(path === "/product")
+    if(path === "/product" && data.price === undefined)
     {
         output = JSON.stringify(product);
     }
+   
+   else if (path === "/product" && data.price !== undefined) {
+    let price = Number(data.price);
+    let type = data.type;
+
+    if (type === "low") {
+        output = product.filter(item => item.price <= price);
+    }
+    else if (type === "high") {
+        output = product.filter(item => item.price >= price);
+    }
+  
+
+    output = JSON.stringify(output);
+}
+else if()
 
      
     res.write(output);
