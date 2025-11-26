@@ -3,37 +3,45 @@ let url = require("url");
 let fs = require("fs");
 
 let server =  http.createServer((req,res) =>{
-    res.writeHead(200,{"Contect-type" : "text/html"})
-    let path = req.url;
+    res.writeHead(200,{"Content-type" : "text/html"})
+    let search = url.parse(req.url,true);
+    let path = search.pathname;
+
     let output = "site/404.html";
-    if(path === "/" || "home")
+    if(path === "/" || path === "/home.html" || path==="/index.html")
     {
         output = "site/index.html";
     }
-    else if(path === "menu.html")
+    else if(path === "/menu.html")
     {
         output = "site/menu.html"
     }
-      else if(path === "gallery.html")
+      else if(path === "/gallery.html")
     {
         output = "site/gallery.html"
     }
-      else if(path === "marraige-hall.html")
+      else if(path === "/marriage-hall.html")
     {
-        output = "site/marraige-hall.html"
+        output = "site/marriage-hall.html"
     }
-      else if(path === "racipe.html")
+      else if(path === "/recipe.html")
     {
-        output = "racipe.html"
+        output = "site/recipe.html"
     }
-      else if(path === "testimonials.html")
+      else if(path === "/testimonials.html")
     {
-        output = "site/tesimonials.html"
+        output = "site/testimonials.html"
     }
 
     fs.readFile(output , (error ,filecontet) => {
-
-        res.write(filecontet);
+         if(error)
+         {
+            res.write("Somthing awrong")
+         }
+         else{
+             
+             res.write(filecontet);
+         }
         res.end();
     })
 })
