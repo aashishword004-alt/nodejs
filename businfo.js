@@ -2,6 +2,7 @@
 let http = require('http');
 let url = require('url');
 let businf = require('./module/bus'); 
+const path = require('path');
 
 let server = http.createServer(function (req, res) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
