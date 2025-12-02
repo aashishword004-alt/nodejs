@@ -4,7 +4,7 @@ let fs = require('fs');
 
 let app = express();
 
-app.get("/", (req, res) => {
+app.get("/" || "/home" , (req, res) => {
     let err = "Something wrong check the code";
     fs.readFile("../site/home.html", (error, filecontent) => {
 
@@ -78,7 +78,7 @@ app.get("/contect", (req, res) => {
 
 app.use((req,res) =>{
     res.send("page not found");
-    
+
 })
 
 let port = 3000;
