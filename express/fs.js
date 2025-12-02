@@ -1,13 +1,12 @@
-const { error } = require("console");
 let express = require("express");
 let fs = require("fs");
 
 let app = express();
-
+let four = "Error occurred while reading file";
 app.get("/", (req, res) => {
-  fs.readFile("./site/index.html", (err, filecontent) => {
+  fs.readFile("../site/index.html", (err, filecontent) => {
     if (err) {
-      res.send("Error occurred while reading file");
+      res.send(four);
     } else {
       res.send(filecontent.toString());
     }
