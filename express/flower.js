@@ -9,7 +9,7 @@ app.get("/" || "/home" , (req, res) => {
     fs.readFile("../site/home.html", (error, filecontent) => {
 
         if (error)
-            req.send(err)
+            res.send(err)
         else
             res.send(filecontent.toString())
     })
@@ -21,7 +21,7 @@ app.get("/about", (req, res) => {
     fs.readFile("../site/about.html", (error, filecontent) => {
 
         if (error)
-            req.send(err)
+            res.send(err)
         else
             res.send(filecontent.toString())
     })
@@ -32,7 +32,7 @@ app.get("/flower", (req, res) => {
     fs.readFile("../site/galleryy.html", (error, filecontent) => {
 
         if (error)
-            req.send(err)
+            res.send(err)
         else
             res.send(filecontent.toString())
     })
@@ -44,7 +44,7 @@ app.get("/collation", (req, res) => {
     fs.readFile("../site/colletion.html", (error, filecontent) => {
 
         if (error)
-            req.send(err)
+            res.send(err)
         else
             res.send(filecontent.toString())
     })
@@ -53,10 +53,10 @@ app.get("/collation", (req, res) => {
 
 app.get("/service", (req, res) => {
     let err = "Something wrong check the code";
-    fs.readFile("../site/service.html", (error, filecontent) => {
+    fs.readFile("./site/service.html", (error, filecontent) => {
 
         if (error)
-            req.send(err)
+            res.send(err)
         else
             res.send(filecontent.toString())
     })
@@ -68,7 +68,7 @@ app.get("/contect", (req, res) => {
     fs.readFile("../site/contect.html", (error, filecontent) => {
 
         if (error)
-            req.send(err)
+            res.send(err)
         else
             res.send(filecontent.toString())
     })
