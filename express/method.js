@@ -26,17 +26,17 @@ app.post("/contact", (req, res) => {
     let { name, email, mobile, message } = req.body;
     console.log(req.body);
 
-   /* let newCustomer = {
-        name: name,
-        email: email,
-        mobile: mobile,
-        message: message
-    }
-    console.log(newCustomer);
-    customers.push(newCustomer); */
+    let newCustomer = {
+         name: name,
+         email: email,
+         mobile: mobile,
+         message: message
+     };
+     console.log(newCustomer);
+     customers.push(newCustomer);  
 
-     customers.push(req.body);
-    console.log(customers); 
+    // customers.push(req.body);
+    // console.log(customers); 
 
     output = [{ 'error ': 'no' }, { 'succes': 'yes' }, { 'message': 'Contect inserted' }];
 
