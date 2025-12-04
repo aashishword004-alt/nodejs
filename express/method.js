@@ -14,33 +14,43 @@ app.get("/", (req, res) => {
 
 app.post("/contact", (req, res) => {
 
-
     /*  let name = req.body.name;
     let email = req.body.email;
     let mobile = req.body.mobile;
     let message = req.body.message;
-    
     output = `name = ${name} , email = ${email}, mobile = ${mobile}, message = ${message}`; */
 
     let output = null;
     let { name, email, mobile, message } = req.body;
     console.log(req.body);
 
-    let newCustomer = {
-         name: name,
-         email: email,
-         mobile: mobile,
-         message: message
-     };
-     console.log(newCustomer);
-     customers.push(newCustomer);  
+    customers.push(req.body);
+    console.log(customers)
+    output = [{'error' : 'no'} , {'message' : 'data are inserted'}];
 
-    // customers.push(req.body);
-    // console.log(customers); 
 
-    output = [{ 'error ': 'no' }, { 'succes': 'yes' }, { 'message': 'Contect inserted' }];
+  /*  if (name === undefined || email === undefined || mobile === undefined || message === undefined) {
+        output = [{ 'error': 'inpute is missing ' }];
+
+    }
+    else {
+
+        let newCustomer = {
+            name: name,
+            email: email,
+            mobile: mobile,
+            message: message
+        };
+
+        customers.push(newCustomer);
+        console.log(customers);
+        output = [{ 'error ': 'no' }, { 'succes': 'yes' }, { 'message': 'Contect inserted' }];
+
+    } */
+
 
     res.json(output);
+
 });
 
 
