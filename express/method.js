@@ -14,33 +14,40 @@ app.get("/", (req, res) => {
 
 app.post("/contact", (req, res) => {
 
-    let output = null;
 
     /*  let name = req.body.name;
-      let email = req.body.email;
-      let mobile = req.body.mobile;
-      let message = req.body.message;
-  
-      output = `name = ${name} , email = ${email}, mobile = ${mobile}, message = ${message}`; */
+    let email = req.body.email;
+    let mobile = req.body.mobile;
+    let message = req.body.message;
+    
+    output = `name = ${name} , email = ${email}, mobile = ${mobile}, message = ${message}`; */
 
+    let output = null;
     let { name, email, mobile, message } = req.body;
+    console.log(req.body);
 
-    let newcustmore = {
+   /* let newCustomer = {
         name: name,
         email: email,
         mobile: mobile,
         message: message
-    };
+    }
+    console.log(newCustomer);
+    customers.push(newCustomer); */
 
-    customers.push(newcustmore);
-
-    console.log(name, email, mobile, message);
+     customers.push(req.body);
+    console.log(customers); 
 
     output = [{ 'error ': 'no' }, { 'succes': 'yes' }, { 'message': 'Contect inserted' }];
-  
+
     res.json(output);
-  
- });
+});
+
+
+
+
+
+
 
 app.put("/", (req, res) => {
 
