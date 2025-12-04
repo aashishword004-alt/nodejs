@@ -1,19 +1,46 @@
 let express = require('express');
-
+let bodyParser = require("body-parser");
 let app = express();
+
+app.use(express.urlencoded({'extended' : true}));
+app.use(bodyParser.json());
+
+let customers = [];
 
 app.get ( "/", (req,res) => {
 
-    res.send("this is a get method");
+    res.json(customers);
 
 
 });
 
-app.post ("/", (req,res) => {
+app.post ("/contact", (req,res) => {
 
-    res.send("this is a post  method");
-
-
+    let output = null;
+ 
+   /* let name = req.body.name;
+    let email = req.body.email;
+    let mobile = req.body.mobile;
+    let message = req.body.message; */
+    
+    let { name ,email , mobile , message} = req.body;
+    let newcustmore ={
+        name : name,
+        email :email ,
+        mobile : mobile,
+        message : message
+    };
+    
+    customers.push(newcustmore);
+    
+    console.log(name,email,mobile,message);
+    
+     output = [{'error ': 'no'} , {'succes' : 'yes' },{'message' : 'Contect inserted'}];
+    
+    
+    res.json(output);
+    
+    
 });
 
 app.put ("/", (req,res) => {

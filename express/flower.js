@@ -2,7 +2,6 @@ let express = require("express");
 let fs = require('fs');
 
 
-let app = express();
 
 app.get("/" || "/home" , (req, res) => {
     let err = "Something wrong check the code";
