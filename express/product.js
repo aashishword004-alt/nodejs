@@ -28,7 +28,7 @@ app.post(ROUTNAME, (req, res) => {
     else {
 
         let product = {
-            id:productID++,
+            id: productID++,
             name: name,
             price: price,
             weight: weight,
@@ -48,10 +48,73 @@ app.post(ROUTNAME, (req, res) => {
 
 app.put(ROUTNAME, (req, res) => {
 
+    let output = null;
+    let { id, name, price, quantity, weight, size, description } = req.body;
+    console.log(req.body);
+
+    if (name === undefined || price === undefined || quantity === undefined || weight === undefined || size === undefined || description === undefined) {
+
+        output = [{ 'error': 'yes' }, { 'message': 'input is messing' }];
+    }
+    else {
+        let isUpdate = false
+        products.forEach((item, index) => {
+            if (item.id === parseInt(id)) {
+                products[index].name = name;
+                products[index].price = price;
+                products[index].quantity = quantity;
+                products[index].weight = weight;
+                products[index].size = size;
+                products[index].description = description;
+                isUpdate = true;
+
+            }
+
+
+        });
+
+        if (isUpdate === false) {
+            output = [{ 'error': 'no' }, { 'succec': 'no' }, { 'message': 'data not found' }];
+
+        }
+        else {
+            output = [{ 'error': 'no' }, { 'succec': 'no' }, { 'message': 'data are updated' }];
+
+
+        }
+    }
+    res.json(output);
 });
 
 
 app.delete(ROUTNAME, (req, res) => {
+
+    let id = req.body.id;
+    let output = null;
+
+    if (id === undefined) {
+        output = [{ 'error': 'no' }, { 'message': 'Id not found' }]
+    }
+    else {
+        let isDelete = false;
+       products = products.filter((item) => {
+            if (item.id !== parseInt(id)) {
+                return item;
+            }
+            else {
+                isDelete = true;
+
+            }
+        });
+        if (isDelete === false) {
+            output = [{ 'error': 'no' }, { 'succec': 'no' }, { 'message': 'Data are not deleted' }]
+        }
+        else {
+            output = [{ 'error': 'no' }, { 'succec': 'yes' }, { 'message': 'Data are  deleted' }]
+
+        }
+    }
+    res.json(output);
 
 });
 
