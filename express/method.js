@@ -31,8 +31,6 @@ app.post("/contact", (req, res) => {
 
     }
     else {
-
-
         let newCustomer = {
             id: customerID++,
             name: name,
@@ -45,28 +43,41 @@ app.post("/contact", (req, res) => {
         output = [{ 'error': 'no' }, { 'message': 'data are inserted' }];
     }
 
-
     res.json(output);
 
 });
 
 
-app.put("/", (req, res) => {
+app.put("/contact", (req, res) => {
     let output = null;
-    let {id, name, email, mobile, message } = req.body;
-    if(id === undefined || name === undefined, email === undefined , mobile === undefined , message === undefined)
-    {
-                output = [{ 'error': 'inpute is missing ' }];
+    let { id, name, email, mobile, message } = req.body;
+    if (id === undefined || name === undefined, email === undefined, mobile === undefined, message === undefined) {
+        output = [{ 'error': 'inpute is missing ' }];
 
     }
     else {
+        let isUpdate = false;
+        customers.forEach((item, index) => {
+            if (item.id === parseInt(id)) {
+                customers[index].name = name;
+                customers[index].email = email;
+                customers[index].mobile = mobile;
+                customers[index].message = message;
+                isUpdate = true
+            }
+        });
 
-        customers.forEach(item, index)
-        {
-            
+
+        if (isUpdate === false) {
+            output = [{ 'error': 'no' }, { 'succec': 'no' }, { 'message': 'contact not found' }];
         }
-    }
+        else {
+            output = output = [{ 'error': 'no' }, { 'succec': 'yes' }, { 'message': 'data are updated' }];
 
+        }
+
+    }
+    res.json(output);
 
 
 });
@@ -74,11 +85,33 @@ app.put("/", (req, res) => {
 
 
 
-app.delete("/", (req, res) => {
+app.delete("/contact", (req, res) => {
+    let output = null;
+    let id = req.body.id
+    if (id === undefined) {
+        output = [{ 'error': 'input is missing' }]
+    }
+    else {
+        let isDelete = false;
+        customers =  customers.filter((item) => {
+            if (item.id !== parseInt(id)) {
+                return item;
+            }
+            else {
+                isDelete = true;
+            }
+        });
+        if (isDelete === false) {
+            output = [ {'error' : 'no'} ,{'succec': 'no'},{ 'medssage': 'Contact are not deleted' }]
+        }
+        else {
+            output = [{'error' : 'no'} , {'succes' : 'yes'} , { 'message': 'Contact are  deleted' }]
 
-    res.send("this is a delete  method");
+        }
 
+    }
 
+    res.json(output);
 });
 
 let port = 3000;
