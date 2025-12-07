@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 
 let Route = "/bank"
 let Accounts = [];
+let accountID = 1;
 let Accountid = otp();
 
 app.get("/", (req, res) => {
@@ -29,6 +30,7 @@ app.post(Route, (req, res) => {
     }
     else {
         let account = {
+            id:accountID++,
             AccountNomber: Accountid,
             name: name,
             balance: balance,
