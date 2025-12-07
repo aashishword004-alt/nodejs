@@ -1,5 +1,6 @@
 let express = require('express');
 let bodyParser = require('body-parser');
+let otp = require('../lib/otp')
 let app = express();
 app.use(express.urlencoded({ 'extended': true }));
 app.use(bodyParser.json());
@@ -10,7 +11,7 @@ app.use(bodyParser.json());
 
 let Route = "/bank"
 let Accounts = [];
-let Accountid = 1;
+let Accountid = otp();
 
 app.get("/", (req, res) => {
     res.json(Accounts);
@@ -28,7 +29,7 @@ app.post(Route, (req, res) => {
     }
     else {
         let account = {
-            id: Accountid++,
+            AccountNomber: Accountid,
             name: name,
             balance: balance,
             mobile: mobile,
@@ -44,7 +45,7 @@ app.post(Route, (req, res) => {
 
 
 app.put(Route, (req, res) => {
-    let { id, name, balance, mobile, email } = req.body;
+    let { AccountNomber, name, balance, mobile, email } = req.body;
     let output = null;
 
     if (name === undefined || balance === undefined || mobile === undefined || email === undefined) {
@@ -55,7 +56,7 @@ app.put(Route, (req, res) => {
         let isUpdate = false;
         Accounts.forEach((item, index) => {
 
-            if (item.id === parseInt(id)) {
+            if (item.AccountNomber === parseInt(AccountNomber)) {
                 Accounts[index].name = name;
                 Accounts[index].balance = balance;
                 Accounts[index].mobile = mobile;
@@ -79,19 +80,21 @@ app.put(Route, (req, res) => {
 
 app.delete(Route, (req, res) => {
     let output = null;
-    let id = req.body.id;
+    let AccountNomber = req.body.AccountNomber;
 
-    if (id === undefined) {
+    if (AccountNomber === undefined) {
         output = [{ 'error': 'no' }, { 'message': 'Account not found' }];
 
     }
     else {
         let isDelete = false
-      Accounts =   Accounts.filter((item) => {
+        Accounts = Accounts.filter((item) => {
             if (item.id !== parseInt(id))
                 return item
             else {
                 isDelete = true;
+
+
             }
         });
         if (isDelete === false) {
