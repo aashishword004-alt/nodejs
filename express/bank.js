@@ -47,7 +47,7 @@ app.post(Route, (req, res) => {
 
 
 app.put(Route, (req, res) => {
-    let { AccountNomber, name, balance, mobile, email } = req.body;
+    let { id  , name, balance, mobile, email } = req.body;
     let output = null;
 
     if (name === undefined || balance === undefined || mobile === undefined || email === undefined) {
@@ -58,7 +58,7 @@ app.put(Route, (req, res) => {
         let isUpdate = false;
         Accounts.forEach((item, index) => {
 
-            if (item.AccountNomber === parseInt(AccountNomber)) {
+            if (item.id === parseInt(id)) {
                 Accounts[index].name = name;
                 Accounts[index].balance = balance;
                 Accounts[index].mobile = mobile;
@@ -82,9 +82,9 @@ app.put(Route, (req, res) => {
 
 app.delete(Route, (req, res) => {
     let output = null;
-    let AccountNomber = req.body.AccountNomber;
+    let id = req.body.id;
 
-    if (AccountNomber === undefined) {
+    if (id === undefined) {
         output = [{ 'error': 'no' }, { 'message': 'Account not found' }];
 
     }
@@ -104,6 +104,7 @@ app.delete(Route, (req, res) => {
 
         }
         else {
+            --id;
             output = [{ 'error': 'no' }, { 'message': 'Account  deleted' }];
 
         }
