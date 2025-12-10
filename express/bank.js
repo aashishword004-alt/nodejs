@@ -14,7 +14,7 @@ let Accounts = [];
 let accountID = 1;
 let Accountid = otp();
 
-app.get("/", (req, res) => {
+app.get(Route, (req, res) => {
     res.json(Accounts);
 });
 
