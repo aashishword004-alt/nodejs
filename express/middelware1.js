@@ -5,8 +5,7 @@ let fs = require('fs');
 let port = 3000;
 
 let date = new Date();
-let output = date.getHours()  + ":" + date.getMinutes() + "  " +  date.getDate()  + "/" +( date.getMonth() + 1 )+ "/" + date.getFullYear() + "   Port nomber" + port +  "\n";
-let filecontet =  output;
+
 
 app.use((req, res, next) => {
     console.log("first middleware");
@@ -19,24 +18,25 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-    date.getHours() 
-    if(date.getHours() > 10 && date.getHours() < 18) console.log("request are acepted");
+    date.getHours()
+    if (date.getHours() > 10 && date.getHours() < 18) console.log("request are acepted");
     else res.send("time out");
     next();
 });
 
-app.use((req,res,next) =>{
-    fs.appendFile("filename.txt", filecontet,(error) =>{
-        if(error)
-        {
+app.use((req, res, next) => {
+    let output = date.getHours() + ":" + date.getMinutes() + "  " + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + "   Port nomber" + port + "\n";
+
+    fs.appendFile("filename.txt", output, (error) => {
+        if (error) {
             console.log("something wrong");
         }
-        else{
+        else {
             console.log("file date are saved");
 
         }
     });
-    
+
     next();
 })
 
