@@ -1,4 +1,3 @@
-const { error } = require('console');
 let express = require('express');
 let app = express();
 let fs = require('fs');
@@ -6,17 +5,22 @@ let port = 3000;
 
 let date = new Date();
 
+// Route
+let Route = "/";
 
+// first middelware 
 app.use((req, res, next) => {
     console.log("first middleware");
     next();
 });
 
+// secound middelware 
 app.use((req, res, next) => {
     console.log("Secound miidleware");
     next();
 });
 
+// if else  middelware 
 app.use((req, res, next) => {
     date.getHours()
     if (date.getHours() > 10 && date.getHours() < 18) console.log("request are acepted");
@@ -24,6 +28,7 @@ app.use((req, res, next) => {
     next();
 });
 
+// file middelware 
 app.use((req, res, next) => {
     let output = date.getHours() + ":" + date.getMinutes() + "  " + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + "   Port nomber" + port + "\n";
 
@@ -41,7 +46,6 @@ app.use((req, res, next) => {
 })
 
 
-let Route = "/";
 
 app.get(Route, (req, res) => {
     res.send("Server are redy to acept the request");
