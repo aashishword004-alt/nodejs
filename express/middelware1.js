@@ -1,6 +1,7 @@
 let express = require('express');
 let app = express();
 let fs = require('fs');
+let url = require('url');
 let port = 3000;
 
 let date = new Date();
@@ -30,7 +31,10 @@ app.use((req, res, next) => {
 
 // file middelware 
 app.use((req, res, next) => {
-    let output = date.getHours() + ":" + date.getMinutes() + "  " + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + "   Port nomber" + port + "\n";
+    let hour = date.getHours();
+    hour > 12 ? hour = hour -12 : hour;
+    let time = hour + ":" + date.getMinutes() + "  " + date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+    let output = `url =  ${req.originalUrl} Ip Address =  ${req.ip} time & date = ${time}  Port nomber = ${port}  \n `;
 
     fs.appendFile("filename.txt", output, (error) => {
         if (error) {
