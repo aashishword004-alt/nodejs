@@ -10,8 +10,8 @@ app.use(bodyParser.json());
         account should have account id (auto generated), name, balance, mobile,email  */
 
 let Route = "/bank"
-let Accounts =  ;
-let accountID =  ;
+let Accounts =  [];
+let accountID = null;
 let Accountid = otp();
 
 app.get(Route, (req, res) => {
@@ -31,7 +31,7 @@ app.post(Route, (req, res) => {
     else {
         let account = {
             id:accountID++,
-            AccountNomber: Accountid,
+            AccountNomber:Accountid++,
             name: name,
             balance: balance,
             mobile: mobile,
