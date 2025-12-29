@@ -1,7 +1,6 @@
 1) Write an SQL statement to create a table students with fields: student_id, name, age, class, city.
  
-create table student
-
+ 
 CREATE TABLE studentt ( stdid int PRIMARY key, name varchar(64), age int(32), class varchar(32), city varchar(32)) 
 
 2) Create a table employees with emp_id as primary key, name, salary, and department.
