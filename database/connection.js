@@ -1,4 +1,4 @@
-const mysql = require ('mysql');
+const mysql = require('mysql');
 const com = require ('./3_mudule.js');
 const con = mysql.createConnection({
 
