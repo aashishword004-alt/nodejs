@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Fun & Dine</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:Georgia,serif;background:#fff8f0;}
+        nav{background:#8B0000;padding:1rem 0;position:fixed;width:100%;top:0;z-index:1000;}
+        .nav-container{max-width:1200px;margin:auto;display:flex;justify-content:space-between;align-items:center;padding:0 2rem;}
+        .logo{font-size:2rem;color:#ffd700;font-weight:bold;}
+        .nav-links a{color:white;text-decoration:none;margin:0 15px;font-weight:bold;}
+        .nav-links a:hover{color:#ffd700;}
+        .container{max-width:1200px;margin:120px auto 50px;padding:0 2rem;}
+        h1{text-align:center;color:#8B0000;font-size:3.5rem;margin:30px 0;}
+        .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
+        .gallery-grid img{width:100%;height:280px;object-fit:cover;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,0.2);transition:0.3s;}
+        .gallery-grid img:hover{transform:scale(1.05);}
+        footer{background:#2c0b0b;color:#ffd700;text-align:center;padding:30px;margin-top:50px;}
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Fun & Dine</div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="recipe.html">Recipe</a>
+                <a href="testimonials.html">Testimonials</a>
+                <a href="marriage-hall.html">Book Marriage Hall</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Memories from Fun & Dine</h1>
+        <div class="gallery-grid">
+            <img src="https://source.unsplash.com/random/600x600/?indian-wedding" alt="Wedding">
+            <img src="https://source.unsplash.com/random/600x600/?birthday-party" alt="Birthday">
+            <img src="https://source.unsplash.com/random/600x600/?restaurant-interior" alt="Interior">
+            <img src="https://source.unsplash.com/random/600x600/?food-platter" alt="Food">
+            <img src="https://source.unsplash.com/random/600x600/?marriage-hall" alt="Hall">
+            <img src="https://source.unsplash.com/random/600x600/?family-celebration" alt="Family">
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Fun & Dine • Call: +91 98765 43210</p>
+    </footer>
+</body>
+</html>
