@@ -38,19 +38,19 @@ app.put( ROUTE, (req,res) =>{
         else
             res.send('Record Updated with id ' + req.body.id);      
     });
-})
+});
 
-app.delete( ROUTE, (req,res) =>{
-    let id = req.body.id;
-    id = parseInt(id);
-    const sql = `DELETE FROM category WHERE id = ${req.body.id}` ;
-    connect.con.query(sql, (error, result) =>{
-        if(error)
-            console.log(error);
-        else
-            res.send('Record Deleted with id ' + req.body.id);  
-    });
-})
+// app.delete( ROUTE, (req,res) =>{
+//     let id = req.body.id;
+//     id = parseInt(id);
+//     const sql = `DELETE FROM category WHERE id = ${req.body.id}` ;
+//     connect.con.query(sql, (error, result) =>{
+//         if(error)
+//             console.log(error);
+//         else
+//             res.send('Record Deleted with id ' + req.body.id);  
+//     });
+// });
 
 
 const Port = 3000;
