@@ -7,11 +7,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const ROUTE = '/category';
 
-app.get(ROUTE, (req, res) => {
-    let start = 50;
-    let end = 111
-    const sql = `SELECT name ,detail,photo FROM category limit ${start},${end}`;
-    connect.con.query(sql, (error, table) => {
+app.get(ROUTE +  ':/start' , (req, res) => {
+    let start = 0;
+    let end = 20;
+    start = parseInt(req.params.start);
+     const sql = `SELECT name ,detail,photo FROM category order by id desc limit ?,?`;
+    let values = [start , end];
+    connect.con.query(sql, values, (error, table) => {
         res.send(table);
         console.log(table);
     })

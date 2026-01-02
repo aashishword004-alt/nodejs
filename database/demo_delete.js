@@ -1,5 +1,5 @@
 const connect = require ('./connection.js');
-const sql = "update category set is_deleted = 1 where id = 5" ;
+const sql = "update category set is_deleted = 1 where id = 3" ;
 connect.con.query(sql, (error, result) =>{
     if(error)
         console.log(error);
