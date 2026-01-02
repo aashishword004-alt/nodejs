@@ -7,38 +7,60 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const ROUTE = '/category';
 
-app.get(ROUTE +  ':/start' , (req, res) => {
+app.get(ROUTE , (req, res) => {
+    console.log(ROUTE);
+
     let start = 0;
     let end = 20;
-    start = parseInt(req.params.start);
-     const sql = `SELECT name ,detail,photo FROM category order by id desc limit ?,?`;
-    let values = [start , end];
+
+    // if (req.params.start !== undefined) {
+    //     start = parseInt(req.params.start);
+    // }
+
+    const sql = `SELECT id, name, detail, photo FROM category ORDER BY id DESC LIMIT ?, ?`;
+    let values = [start, end];
+
     connect.con.query(sql, values, (error, table) => {
-        res.send(table);
-        console.log(table);
-    })
-
-});
-
-app.post(ROUTE, (req, res) => {
-    const sql = `INSERT INTO category (name, detail, photo) VALUES ('${req.body.name}', '${req.body.detail}', '${req.body.photo}')`;
-    connect.con.query(sql, (error, result) => {
         if (error) {
+            res.json(error);
             console.log(error);
+            return;
         }
-        else {
-            res.send('Data inserted with id ' + result.insertId);
-        }
-
+        res.json(table);
     });
 });
-app.put( ROUTE, (req,res) =>{
-    const sql = `UPDATE category SET name='${req.body.name}', detail='${req.body.detail}', photo='${req.body.photo}' WHERE id=${req.body.id}` ;
-    connect.con.query(sql, (error, result) =>{
-        if(error)
+
+
+app.post(ROUTE, (req, res) => {
+    let { name, detail, photo } = req.body;
+    if (name == undefined || detail == undefined || photo == undefined) {
+        res.json([{ 'error': 'no' }, { 'success:': 'no' }, { 'mesaage': 'input is Missing' }])
+    }
+    else {
+        const sql = 'INSERT INTO category (name, detail, photo) VALUES (?,?,?)';
+        let values = [name, detail, photo];
+        connect.con.query(sql, values, (error, result) => {
+            if (error) {
+                console.log(error);
+                res.json([{ 'error': 'somthing wrong in code' }])
+            }
+            else {
+                res.json([{ 'error': 'no' }, { 'sucess': 'yes' }, { 'message': 'Data are inserted' }]);
+
+            }
+
+        });
+
+    }
+
+});
+app.put(ROUTE, (req, res) => {
+    const sql = `UPDATE category SET name='${req.body.name}', detail='${req.body.detail}', photo='${req.body.photo}' WHERE id=${req.body.id}`;
+    connect.con.query(sql, (error, result) => {
+        if (error)
             console.log(error);
         else
-            res.send('Record Updated with id ' + req.body.id);      
+            res.send('Record Updated with id ' + req.body.id);
     });
 });
 
