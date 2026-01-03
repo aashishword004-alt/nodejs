@@ -7,29 +7,37 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const ROUTE = '/category';
 
-app.get(ROUTE , (req, res) => {
-    console.log(ROUTE);
+// this /:start method only run in express 4 
+
+app.get(ROUTE + '/:start?', (req, res) => {
 
     let start = 0;
     let end = 20;
 
-    // if (req.params.start !== undefined) {
-    //     start = parseInt(req.params.start);
-    // }
+    if (req.params.start !== undefined) {
+        start = parseInt(req.params.start);
+    }
 
-    const sql = `SELECT id, name, detail, photo FROM category ORDER BY id DESC LIMIT ?, ?`;
+    const sql = 'SELECT id, name, detail, photo FROM category where is_deleted = 0 ORDER BY id DESC LIMIT ?,?';
     let values = [start, end];
 
     connect.con.query(sql, values, (error, table) => {
         if (error) {
             res.json(error);
             console.log(error);
-            return;
+
         }
-        res.json(table);
+        else {
+
+            res.json(table);
+        }
     });
+
+
+
 });
 
+// post methode done 
 
 app.post(ROUTE, (req, res) => {
     let { name, detail, photo } = req.body;
@@ -54,27 +62,62 @@ app.post(ROUTE, (req, res) => {
     }
 
 });
+
+// put mathode  
+// always done but some issue are faced
 app.put(ROUTE, (req, res) => {
-    const sql = `UPDATE category SET name='${req.body.name}', detail='${req.body.detail}', photo='${req.body.photo}' WHERE id=${req.body.id}`;
-    connect.con.query(sql, (error, result) => {
-        if (error)
-            console.log(error);
-        else
-            res.send('Record Updated with id ' + req.body.id);
-    });
+
+    let { id, name, detail, photo } = req.body;
+    id = parseInt(id);
+    if (name === undefined || detail === undefined || photo === undefined || id === undefined) {
+        res.json([{ 'error': 'no' }, { 'success:': 'no' }, { 'mesaage': 'input is Missing' }])
+    }
+    else {
+        const sql = `UPDATE category SET name=?, detail=?, photo=? WHERE id=?`;
+        let values = [name, detail, photo, id];
+        connect.con.query(sql, values, (error, result) => {
+            if (error) {
+                res.json([{ 'error': 'somthing wrog in code' }]);
+            }
+            else {
+                if (result.affectedRows == 0) res.json([{ 'error': 'no' }, { 'sucess': 'no' }, { 'message': 'category not found' }]);
+                else res.json([{ 'error': 'no' }, { 'sucess': 'yes' }, { 'message': 'category are updated' }]);
+            }
+        });
+    }
+
+
 });
 
-// app.delete( ROUTE, (req,res) =>{
-//     let id = req.body.id;
-//     id = parseInt(id);
-//     const sql = `DELETE FROM category WHERE id = ${req.body.id}` ;
-//     connect.con.query(sql, (error, result) =>{
-//         if(error)
-//             console.log(error);
-//         else
-//             res.send('Record Deleted with id ' + req.body.id);  
-//     });
-// });
+app.delete(ROUTE, (req, res) => {
+    let id = req.body.id;
+    id = parseInt(id);
+    if (id === undefined) {
+        res.json([{ 'error': 'input is missing' }])
+
+    }
+    else {
+
+
+        const sql = `update category set is_deleted = 1 WHERE id = ?`;
+        let values = [id]
+        connect.con.query(sql, values, (error, result) => {
+            if (error)
+                res.json([{'error' : 'somthing Wrong in code'}]);
+            else
+                if(result.affectedRows == 0)
+                {
+                    res.json([{'error' :'no'} ,{'sucess' :'no'},{'message' : "Category not found"}]);
+
+                }
+                else{
+
+                    res.json([{'message' :' Category is deleted'}]);
+                }
+        });
+    }
+
+});
 
 
 const Port = 3000;
