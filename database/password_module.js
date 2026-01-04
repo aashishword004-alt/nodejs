@@ -1,5 +1,5 @@
 var http = require("http");
-let sequrity = require("./lib/securityy");
+let sequrity = require("../lib/securityy");
 
 function hadlePassdword(req, res) {
     let password = sequrity.generatePassword();
