@@ -9,10 +9,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const USER_ROUTE = '/user'
 
 app.get(USER_ROUTE,(req,res) =>{
-    let user = req.body;
-    let sql = "SELECT email, mobile, password,  FROM ?"
-    let VALUES = [user];
-    connect.con.query(sql,VALUES,(err,result) =>{
+
+    let sql = 'SELECT email, mobile, password,  FROM users';
+    connect.con.query(sql,(err,result) =>{
         if(err)
         {
             console.log(err);
