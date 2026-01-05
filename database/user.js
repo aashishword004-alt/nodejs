@@ -8,7 +8,24 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const USER_ROUTE = '/user'
 
-// using post method 
+app.get(USER_ROUTE,(req,res) =>{
+    let user = req.body;
+    let sql = "SELECT email, mobile, password,  FROM ?"
+    let VALUES = [user];
+    connect.con.query(sql,VALUES,(err,result) =>{
+        if(err)
+        {
+            console.log(err);
+        }
+        else{
+            res.json(result);
+        }
+    })
+
+})
+
+// using post method in ragistration done
+
 app.post(USER_ROUTE, (req, res) => {
     let { email, mobile, password } = req.body;
     if (email == undefined || mobile == undefined || password == undefined) {
@@ -47,50 +64,7 @@ app.post(USER_ROUTE, (req, res) => {
     }
 });
 
-// app.post(USER_ROUTE, (req, res) => {
-//     let { email, mobile, password } = req.body;
-
-//     if (email == undefined || mobile == undefined || password == undefined) {
-//         return res.json([
-//             { 'error': 'no' },
-//             { 'success': 'no' },
-//             { 'message': 'input is Missing' }
-//         ]);
-//     }
-
-//     let sql = "INSERT INTO users(email, mobile, password) VALUES (?,?,?)";
-
-//     sequrityy.getpassword(password)
-//     .then(function (conformpassword) {
-
-//         let VALUES = [email, mobile, conformpassword];
-
-//         connect.con.query(sql, VALUES, (error, result) => {
-//             if (error) {
-//                 if (error.errno === 1062) {
-//                     return res.json([
-//                         { 'error': 'User already registered. Please enter new details' }
-//                     ]);
-//                 }
-
-//                 return res.json([{ 'error': 'Something wrong in code' }]);
-//             }
-
-//             res.json([
-//                 { 'error': 'no' },
-//                 { 'success': 'yes' },
-//                 { 'message': 'Registration Successfully' }
-//             ]);
-//         });
-//     })
-//     .catch(() => {
-//         res.json([{ 'error': 'Password encryption failed' }]);
-//     });
-// });
-
-
-
-let port = 3000;
+let port = 5000;
 app.listen(port, () => {
     console.log("Server is Listening");
 });

@@ -63,8 +63,8 @@ app.post(ROUTE, (req, res) => {
 
 });
 
-// put mathode  
-// always done but some issue are faced
+
+// update mathod 
 app.put(ROUTE, (req, res) => {
 
     let { id, name, detail, photo } = req.body;
