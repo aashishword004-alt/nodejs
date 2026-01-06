@@ -6,26 +6,13 @@ let sequrityy = require('../lib/securityy')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// dont use  get method in input api 
+
 const USER_ROUTE = '/user'
 
-app.get(USER_ROUTE,(req,res) =>{
-
-    let sql = 'SELECT email, mobile, password,  FROM users';
-    connect.con.query(sql,(err,result) =>{
-        if(err)
-        {
-            console.log(err);
-        }
-        else{
-            res.json(result);
-        }
-    })
-
-})
 
 // using post method in ragistration done
-
-app.post(USER_ROUTE, (req, res) => {
+app.post(USER_ROUTE + '/ragistration', (req, res) => {
     let { email, mobile, password } = req.body;
     if (email == undefined || mobile == undefined || password == undefined) {
         res.json([{ 'error': 'no' },
@@ -60,6 +47,46 @@ app.post(USER_ROUTE, (req, res) => {
             })
         });
 
+    }
+});
+
+// using post method in login 
+
+app.post(USER_ROUTE + '/login', (req, res) => {
+
+    let { email, password } = req.body;
+    if (email === undefined || password === undefined) {
+        res.json([{ 'error': 'input is missing' }]);
+    }
+    else {
+        let sql = 'select email,password from users where email=?';
+        connect.con.query(sql, [email], (error, result) => {
+            if (error) {
+                res.json([{ 'error': 'Somthing wrong please wait' }]);
+
+            }
+            else {
+                if (result.length == 0) {
+                    res.json([{ 'error': 'no' }, { 'success': 'no' }, { 'message': 'invalid email address' }]);
+
+                }
+                else {
+
+                    let hashpassword = result[0]['password'];
+                    sequrityy.conformpassword(password, hashpassword).then((ispasswordmatch) => {
+                        if (ispasswordmatch == false)
+                        {
+                            res.json([{ 'error': 'no' }, { 'seccess': 'no' }, { 'message': 'invaild password' }]);
+                        }
+                        else {
+                            res.json([{ 'error': 'no' }, { 'success': 'yes' }, { 'message': 'login succesfully' },{'id' : result[0]['id']}]);
+                           
+                        }
+                    });
+
+                }
+            }
+        });
     }
 });
 
