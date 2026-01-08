@@ -89,7 +89,7 @@ app.post(USER_ROUTE + '/login', function (req, res) {
     }
 });
 
-// change password  faild rewrite the code 
+// change password  done
 app.post(USER_ROUTE + '/change_password', function (req, res) {
 
     let { id, password, new_password } = req.body;
