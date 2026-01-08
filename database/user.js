@@ -12,7 +12,7 @@ const USER_ROUTE = '/user'
 
 
 // using post method in ragistration done
-app.post(USER_ROUTE + '/ragistration', (req, res) => {
+app.post(USER_ROUTE + '/ragistration', function (req, res) {
     let { email, mobile, password } = req.body;
     if (email == undefined || mobile == undefined || password == undefined) {
         res.json([{ 'error': 'no' },
@@ -52,7 +52,7 @@ app.post(USER_ROUTE + '/ragistration', (req, res) => {
 
 // using post method in login done 
 
-app.post(USER_ROUTE + '/login', (req, res) => {
+app.post(USER_ROUTE + '/login', function (req, res) {
 
     let { email, password } = req.body;
     if (email === undefined || password === undefined) {
@@ -90,6 +90,56 @@ app.post(USER_ROUTE + '/login', (req, res) => {
 });
 
 // change password  faild rewrite the code 
+app.post(USER_ROUTE + '/change_password', function (req, res) {
+
+    let { id, password, new_password } = req.body;
+    if (id === undefined || password === undefined || new_password === undefined) {
+        res.json([{ 'error': 'input is missing' }]);
+    }
+    else {
+
+        let sql = 'select password from users where id = ?'
+
+        connect.con.query(sql, [id], (error, result) => {
+            if (error) {
+                res.json([{ 'error': 'Somthing wrong in code' }]);
+
+            }
+            else {
+                if (result.length === 0) {
+                    res.json([{ 'error': 'no' }, { 'success ': 'no' }, { 'message': 'Password change proccess faild' }]);
+                }
+                else {
+                    let isPassword = result[0]['password']
+                    sequrityy.conformpassword(password, isPassword).then((ispasswordmatch) => {
+                        if (ispasswordmatch === false) {
+                            res.json([{ 'error': 'no' }, { 'success': 'no' }, { 'message': 'Password is wrong' }]);
+
+                        }
+                        else {
+                            sequrityy.gethashpassword(new_password).then((newhashedPassword) => {
+
+                                sql = 'update  users set password = ? where id = ?'
+                                let VALUES = [ newhashedPassword,id];
+                                connect.con.query(sql, VALUES, (err, ress) => {
+
+                                    if (err) {
+                                        res.json([{ 'error': 'Somthing wrong  in code' }]);
+                                    }
+                                    else {
+                                        res.json([{ 'error': 'no' }, { 'success': 'yes' }, { 'message': 'Password Change Successfuly' }]);
+
+                                    }
+                                });
+                            })
+
+                        }
+                    })
+                }
+            }
+        });
+    }
+});
 
 let port = 5000;
 app.listen(port, () => {
