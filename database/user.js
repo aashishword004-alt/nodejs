@@ -50,7 +50,7 @@ app.post(USER_ROUTE + '/ragistration', (req, res) => {
     }
 });
 
-// using post method in login 
+// using post method in login done 
 
 app.post(USER_ROUTE + '/login', (req, res) => {
 
@@ -74,13 +74,12 @@ app.post(USER_ROUTE + '/login', (req, res) => {
 
                     let hashpassword = result[0]['password'];
                     sequrityy.conformpassword(password, hashpassword).then((ispasswordmatch) => {
-                        if (ispasswordmatch == false)
-                        {
+                        if (ispasswordmatch == false) {
                             res.json([{ 'error': 'no' }, { 'seccess': 'no' }, { 'message': 'invaild password' }]);
                         }
                         else {
-                            res.json([{ 'error': 'no' }, { 'success': 'yes' }, { 'message': 'login succesfully' },{'id' : result[0]['id']}]);
-                           
+                            res.json([{ 'error': 'no' }, { 'success': 'yes' }, { 'message': 'login succesfully' }, { 'id': result[0]['id'] }]);
+
                         }
                     });
 
@@ -88,6 +87,38 @@ app.post(USER_ROUTE + '/login', (req, res) => {
             }
         });
     }
+});
+
+// change password 
+app.post(USER_ROUTE + '/chage_password', (req, res) => {
+
+    let { id, email } = req.body;
+    if (id === undefined || email === undefined) {
+        if (email === undefined || password === undefined) {
+            res.json([{ 'error': 'input is missing' }]);
+        }
+    }
+    else{
+        let sql = 'select id from users where  email=?'
+        
+        connect.con.query(sql,[email],(error,result) =>{
+            if(error)
+            {
+                   res.json([{ 'error': 'Somthing wrong please wait' }]);
+            }
+            else{
+                if(result.length === 0)
+                {
+                    res.json([{'error' : 'no'},{'success' : 'no'},{'message' : 'invalid email'}]);
+                }
+                else{
+                    
+                }
+            }
+
+        })
+    }
+
 });
 
 let port = 5000;
