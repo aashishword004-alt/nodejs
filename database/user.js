@@ -141,6 +141,20 @@ app.post(USER_ROUTE + '/change_password', function (req, res) {
     }
 });
 
+//  fogot password 
+app.post(USER_ROUTE + '/forgot_password' ,(req,res) =>{
+let {email} = req.body;
+if(email === undefined)
+{
+    res.json([{'error' : 'input is missing'}]);
+}
+else{
+    
+}
+
+});
+
+
 let port = 5000;
 app.listen(port, () => {
     console.log("Server is Listening");

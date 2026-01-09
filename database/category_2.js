@@ -1,15 +1,10 @@
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-const connect = require('./connection.js');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
-const ROUTE = '/category';
+const connect = require('./connection.js');
+
+
 
 // this /:start method only run in express 4 
-
-app.get(ROUTE + '/:start?', (req, res) => {
+function Select(req, res) {
 
     let start = 0;
     let end = 20;
@@ -35,11 +30,11 @@ app.get(ROUTE + '/:start?', (req, res) => {
 
 
 
-});
+}
 
-// post methode done 
 
-app.post(ROUTE, (req, res) => {
+// this is Post method
+function Postmethod(req, res) {
     let { name, detail, photo } = req.body;
     if (name == undefined || detail == undefined || photo == undefined) {
         res.json([{ 'error': 'no' }, { 'success:': 'no' }, { 'mesaage': 'input is Missing' }])
@@ -61,11 +56,10 @@ app.post(ROUTE, (req, res) => {
 
     }
 
-});
-
+}
 
 // update mathod 
-app.put(ROUTE, (req, res) => {
+function Putmethod(req, res) {
 
     let { id, name, detail, photo } = req.body;
     id = parseInt(id);
@@ -87,9 +81,10 @@ app.put(ROUTE, (req, res) => {
     }
 
 
-});
+}
 
-app.delete(ROUTE, (req, res) => {
+// delete method 
+ function methodDelete (req, res) {
     let id = req.body.id;
     id = parseInt(id);
     if (id === undefined) {
@@ -114,10 +109,10 @@ app.delete(ROUTE, (req, res) => {
         });
     }
 
-});
+}
 
-
-const Port = 3000;
-app.listen(Port, () => {
-    console.log('Server is running on port ' + Port);
-});
+module.exports.Select = Select;
+module.exports.Postmethod = Postmethod;
+module.exports.Postmethod = Postmethod;
+module.exports.Putmethod = Putmethod;
+module.exports.methodDelete = methodDelete;
