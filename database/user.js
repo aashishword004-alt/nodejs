@@ -2,7 +2,7 @@ let express = require('express');
 let connect = require('./connection');
 let bodyParser = require('body-parser');
 let app = express();
-let SendEmail = require('../lib/email.js')
+let otp = require('../lib/email')
 let sequrityy = require('../lib/securityy')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -121,7 +121,7 @@ app.post(USER_ROUTE + '/change_password', function (req, res) {
                             sequrityy.gethashpassword(new_password).then((newhashedPassword) => {
 
                                 sql = 'update  users set password = ? where id = ?'
-                                let VALUES = [ newhashedPassword,id];
+                                let VALUES = [newhashedPassword, id];
                                 connect.con.query(sql, VALUES, (err, ress) => {
 
                                     if (err) {
@@ -143,35 +143,28 @@ app.post(USER_ROUTE + '/change_password', function (req, res) {
 });
 
 //  fogot password 
-app.post(USER_ROUTE + '/forgot_password' ,(req,res) =>{
-let {email , otp} = req.body;
-if(email === undefined || otp === undefined)
-{
-    res.json([{'error' : 'input is missing'}]);
-}
-else{
+app.post(USER_ROUTE + '/forgot_password', (req, res) => {
+    let { email, otp ,new_password } = req.body;
+    if (email === undefined || otp === undefined  || new_password === undefined) {
+        res.json([{ 'error': 'input is missing' }]);
+    }
+    else {
 
-     let sql = 'select id from users where email = ?';
-     connect.con.query(sql , [email] , (error,result) =>{
-        if(error)
-        {
-            res.json([{'error' : " somthing wromg in code"}]);
-        }
-        else{
-              if(result.length === 0)
-              {
-                res.json([{'error' : 'no'},{'success' : 'no'},{'message' : 'Email invalid Please Enter the Ragister Email'}]);
+        let sql = 'select id from users where email = ?';
+        connect.con.query(sql, [email], (error, result) => {
+            if (error) {
+                res.json([{ 'error': " somthing wromg in code" }]);
+            }
+            else {
+                if (result.length === 0) {
+                    res.json([{ 'error': 'no' }, { 'success': 'no' }, { 'message': 'Email invalid Please Enter the Ragister Email' }]);
 
-              }
-              else{
-                   
-
+                }
                 
-              }
-        }
-     });
-    
-}
+            }
+        });
+
+    }
 
 });
 
