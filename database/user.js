@@ -142,7 +142,7 @@ app.post(USER_ROUTE + '/change_password', function (req, res) {
     }
 });
 
-//  fogot password 
+//  fogot password  panding 
 app.post(USER_ROUTE + '/forgot_password', (req, res) => {
     let { email, otp ,new_password } = req.body;
     if (email === undefined || otp === undefined  || new_password === undefined) {

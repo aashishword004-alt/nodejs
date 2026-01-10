@@ -1,4 +1,4 @@
-
+let er = require('./file.err.js')
 const connect = require('./connection.js');
 
 
@@ -13,13 +13,14 @@ function Select(req, res) {
         start = parseInt(req.params.start);
     }
 
-    const sql = 'SELECT id, name, detail, photo FROM category where is_deleted = 0 ORDER BY id DESC LIMIT ?,?';
+    const sql = 'SELECT id, name, detail, photo FROM categoryy where is_deleted = 0 ORDER BY id DESC LIMIT ?,?';
     let values = [start, end];
 
     connect.con.query(sql, values, (error, table) => {
         if (error) {
             res.json(error);
-            console.log(error);
+            er.LogError('You have Error', error);
+
 
         }
         else {
@@ -44,8 +45,9 @@ function Postmethod(req, res) {
         let values = [name, detail, photo];
         connect.con.query(sql, values, (error, result) => {
             if (error) {
-                console.log(error);
-                res.json([{ 'error': 'somthing wrong in code' }])
+                res.json([{ 'error': 'somthing wrong in code' }]);
+                er.LogError('You have Error', error);
+
             }
             else {
                 res.json([{ 'error': 'no' }, { 'sucess': 'yes' }, { 'message': 'Data are inserted' }]);
@@ -72,6 +74,8 @@ function Putmethod(req, res) {
         connect.con.query(sql, values, (error, result) => {
             if (error) {
                 res.json([{ 'error': 'somthing wrog in code' }]);
+                er.LogError('You have Error', error);
+
             }
             else {
                 if (result.affectedRows == 0) res.json([{ 'error': 'no' }, { 'sucess': 'no' }, { 'message': 'category not found' }]);
@@ -84,7 +88,7 @@ function Putmethod(req, res) {
 }
 
 // delete method 
- function methodDelete (req, res) {
+function methodDelete(req, res) {
     let id = req.body.id;
     id = parseInt(id);
     if (id === undefined) {
@@ -95,9 +99,16 @@ function Putmethod(req, res) {
         const sql = `update category set is_deleted = 1 WHERE id = ?`;
         let values = [id]
         connect.con.query(sql, values, (error, result) => {
-            if (error)
+            if (error) {
+
                 res.json([{ 'error': 'somthing Wrong in code' }]);
-            else
+                er.LogError('You have Error', error);
+
+            }
+
+            else {
+
+
                 if (result.affectedRows == 0) {
                     res.json([{ 'error': 'no' }, { 'sucess': 'no' }, { 'message': "Category not found" }]);
 
@@ -106,6 +117,7 @@ function Putmethod(req, res) {
 
                     res.json([{ 'message': ' Category is deleted' }]);
                 }
+            }
         });
     }
 

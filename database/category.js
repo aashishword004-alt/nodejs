@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const connect = require('./connection.js');
+let er = require('./file.err.js');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -23,7 +24,7 @@ app.get(ROUTE + '/:start?', (req, res) => {
     connect.con.query(sql, values, (error, table) => {
         if (error) {
             res.json(error);
-            console.log(error);
+            er.LogError('You have Error', error);
 
         }
         else {
@@ -48,8 +49,8 @@ app.post(ROUTE, (req, res) => {
         let values = [name, detail, photo];
         connect.con.query(sql, values, (error, result) => {
             if (error) {
-                console.log(error);
-                res.json([{ 'error': 'somthing wrong in code' }])
+                res.json([{ 'error': 'somthing wrong in code' }]);
+                er.LogError('You have Error', error);
             }
             else {
                 res.json([{ 'error': 'no' }, { 'sucess': 'yes' }, { 'message': 'Data are inserted' }]);
@@ -77,6 +78,8 @@ app.put(ROUTE, (req, res) => {
         connect.con.query(sql, values, (error, result) => {
             if (error) {
                 res.json([{ 'error': 'somthing wrog in code' }]);
+                er.LogError('You have Error', error);
+
             }
             else {
                 if (result.affectedRows == 0) res.json([{ 'error': 'no' }, { 'sucess': 'no' }, { 'message': 'category not found' }]);
@@ -88,6 +91,8 @@ app.put(ROUTE, (req, res) => {
 
 });
 
+
+// delete done 
 app.delete(ROUTE, (req, res) => {
     let id = req.body.id;
     id = parseInt(id);
@@ -99,9 +104,14 @@ app.delete(ROUTE, (req, res) => {
         const sql = `update category set is_deleted = 1 WHERE id = ?`;
         let values = [id]
         connect.con.query(sql, values, (error, result) => {
-            if (error)
+            if (error) {
                 res.json([{ 'error': 'somthing Wrong in code' }]);
-            else
+                er.LogError('You have Error', error);
+
+
+            }
+
+            else {
                 if (result.affectedRows == 0) {
                     res.json([{ 'error': 'no' }, { 'sucess': 'no' }, { 'message': "Category not found" }]);
 
@@ -110,6 +120,7 @@ app.delete(ROUTE, (req, res) => {
 
                     res.json([{ 'message': ' Category is deleted' }]);
                 }
+            }
         });
     }
 
