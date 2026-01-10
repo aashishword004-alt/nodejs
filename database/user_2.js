@@ -1,11 +1,7 @@
-let express = require('express');
 let connect = require('./connection');
-let bodyParser = require('body-parser');
-let app = express();
-let otp = require('../lib/email')
+
 let sequrityy = require('../lib/securityy')
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+
 
 // dont use  get method in input api 
 
@@ -13,7 +9,7 @@ const USER_ROUTE = '/user'
 
 
 // using post method in ragistration done
-app.post(USER_ROUTE + '/ragistration', function (req, res) {
+    function Ragister (req, res) {
     let { email, mobile, password } = req.body;
     if (email == undefined || mobile == undefined || password == undefined) {
         res.json([{ 'error': 'no' },
@@ -49,11 +45,10 @@ app.post(USER_ROUTE + '/ragistration', function (req, res) {
         });
 
     }
-});
+}
 
 // using post method in login done 
-
-app.post(USER_ROUTE + '/login', function (req, res) {
+    function Login (req, res) {
 
     let { email, password } = req.body;
     if (email === undefined || password === undefined) {
@@ -88,10 +83,11 @@ app.post(USER_ROUTE + '/login', function (req, res) {
             }
         });
     }
-});
+}
 
 // change password  done
-app.post(USER_ROUTE + '/change_password', function (req, res) {
+
+     function ChangePassword (req, res) {
 
     let { id, password, new_password } = req.body;
     if (id === undefined || password === undefined || new_password === undefined) {
@@ -140,39 +136,11 @@ app.post(USER_ROUTE + '/change_password', function (req, res) {
             }
         });
     }
-});
-
-//  fogot password  panding 
-app.post(USER_ROUTE + '/forgot_password', (req, res) => {
-    let { email, otp ,new_password } = req.body;
-    if (email === undefined || otp === undefined  || new_password === undefined) {
-        res.json([{ 'error': 'input is missing' }]);
-    }
-    else {
-
-        let sql = 'select id from users where email = ?';
-        connect.con.query(sql, [email], (error, result) => {
-            if (error) {
-                res.json([{ 'error': " somthing wromg in code" }]);
-            }
-            else {
-                if (result.length === 0) {
-                    res.json([{ 'error': 'no' }, { 'success': 'no' }, { 'message': 'Email invalid Please Enter the Ragister Email' }]);
-
-                }
-                else{
-                    
-                }
-                
-            }
-        });
-
-    }
-
-});
+}
 
 
-let port = 5000;
-app.listen(port, () => {
-    console.log("Server is Listening");
-});
+
+
+module.exports.Login = Login; 
+module.exports.Ragister = Ragister; 
+module.exports.ChangePassword = ChangePassword; 

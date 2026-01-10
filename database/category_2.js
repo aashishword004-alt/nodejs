@@ -13,7 +13,7 @@ function Select(req, res) {
         start = parseInt(req.params.start);
     }
 
-    const sql = 'SELECT id, name, detail, photo FROM categoryy where is_deleted = 0 ORDER BY id DESC LIMIT ?,?';
+    const sql = 'SELECT id, name, detail, photo FROM category where is_deleted = 0 ORDER BY id DESC LIMIT ?,?';
     let values = [start, end];
 
     connect.con.query(sql, values, (error, table) => {
