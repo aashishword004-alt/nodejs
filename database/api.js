@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 let USER_CATEGORY = '/category'
 
 // get rout 
-app.get(USER_CATEGORY + '/:start',(req,res) =>{ user.Select(req,res)});
+app.get(USER_CATEGORY + '/:start?',(req,res) =>{ user.Select(req,res)});
 
 // post method 
 app.post(USER_CATEGORY , (req,res) =>{user.Postmethod(req,res);});

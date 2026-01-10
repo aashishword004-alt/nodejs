@@ -113,6 +113,5 @@ function Putmethod(req, res) {
 
 module.exports.Select = Select;
 module.exports.Postmethod = Postmethod;
-module.exports.Postmethod = Postmethod;
 module.exports.Putmethod = Putmethod;
 module.exports.methodDelete = methodDelete;

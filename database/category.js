@@ -6,7 +6,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const ROUTE = '/category';
-
 // this /:start method only run in express 4 
 
 app.get(ROUTE + '/:start?', (req, res) => {
