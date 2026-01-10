@@ -2,6 +2,7 @@ let express = require('express');
 let connect = require('./connection');
 let bodyParser = require('body-parser');
 let app = express();
+let SendEmail = require('../lib/email.js')
 let sequrityy = require('../lib/securityy')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -143,12 +144,32 @@ app.post(USER_ROUTE + '/change_password', function (req, res) {
 
 //  fogot password 
 app.post(USER_ROUTE + '/forgot_password' ,(req,res) =>{
-let {email} = req.body;
-if(email === undefined)
+let {email , otp} = req.body;
+if(email === undefined || otp === undefined)
 {
     res.json([{'error' : 'input is missing'}]);
 }
 else{
+
+     let sql = 'select id from users where email = ?';
+     connect.con.query(sql , [email] , (error,result) =>{
+        if(error)
+        {
+            res.json([{'error' : " somthing wromg in code"}]);
+        }
+        else{
+              if(result.length === 0)
+              {
+                res.json([{'error' : 'no'},{'success' : 'no'},{'message' : 'Email invalid Please Enter the Ragister Email'}]);
+
+              }
+              else{
+                   
+
+                
+              }
+        }
+     });
     
 }
 
