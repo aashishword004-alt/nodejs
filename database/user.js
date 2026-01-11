@@ -2,7 +2,8 @@ let express = require('express');
 let connect = require('./connection');
 let bodyParser = require('body-parser');
 let app = express();
-let otp = require('../lib/email')
+let Emailpass = require('../lib/email')
+let e = require('./file.err')
 let sequrityy = require('../lib/securityy')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -144,8 +145,8 @@ app.post(USER_ROUTE + '/change_password', function (req, res) {
 
 //  fogot password  panding 
 app.post(USER_ROUTE + '/forgot_password', (req, res) => {
-    let { email, otp ,new_password } = req.body;
-    if (email === undefined || otp === undefined  || new_password === undefined) {
+    let { email } = req.body;
+    if (!email) {
         res.json([{ 'error': 'input is missing' }]);
     }
     else {
@@ -160,10 +161,28 @@ app.post(USER_ROUTE + '/forgot_password', (req, res) => {
                     res.json([{ 'error': 'no' }, { 'success': 'no' }, { 'message': 'Email invalid Please Enter the Ragister Email' }]);
 
                 }
-                else{
-                    
+                else {
+
+                    let new_password = sequrityy.Ganratopt(4);
+                    sequrityy.gethashpassword(new_password).then((hashpassword) => {
+                        let sql = 'update users set password = ? where email = ?';
+                        connect.con.query(sql, [hashpassword, email], (err, resul) => {
+                            if (err) {
+                                e.LogError('Error is ', err)
+                                res.json([{ 'error': 'Somthing Wrong in Code' }]);
+
+                            }
+                            else {
+                                response.json([{ 'error': 'no' }, { 'success': 'yes' }, { 'message': 'password recovery instruction has been sent to you' }]);
+                                let Mymail = new Emailpass.emailSend();
+                                message = `The Password is ${new_password}`
+                                Mymail.send(email, message);
+                            }
+                        });
+                    });
+
                 }
-                
+
             }
         });
 
