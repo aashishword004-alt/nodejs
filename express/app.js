@@ -6,6 +6,11 @@ let bodyParser = require('body-parser');
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get('/first', (req,res) =>{
+    res.render('first');
+    
+});
+
 
 
 
