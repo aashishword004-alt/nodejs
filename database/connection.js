@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const com = require ('./3_mudule.js');
+const com = require('./4_mudule.js');
 const con = mysql.createConnection({
 
     host:com.server,
