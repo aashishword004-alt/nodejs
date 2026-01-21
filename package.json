@@ -4,6 +4,7 @@
     "crypto": "^1.0.1",
     "express": "^4.22.1",
     "mysql": "^2.18.1",
-    "nodemailer": "^7.0.10"
+    "nodemailer": "^7.0.10",
+    "pug": "^3.0.3"
   }
 }

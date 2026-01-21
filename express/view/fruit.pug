@@ -1,0 +1,16 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        title Country Page 
+    body 
+        table(border="1" align="center" callpadding="10" cellspacing="0")
+            tr  
+                th Sr No 
+                th Fruit Name
+            tr  
+                each item ,index in data 
+                  tr 
+                      td #{index + 1}
+                      td #{item.name}
