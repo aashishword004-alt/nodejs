@@ -9,10 +9,6 @@ function hadlePassdword(req, res) {
         res.write(password  + " \n " + conformpassword);
         res.end();
     });
-
-
-
-
 }
 
 let server = http.createServer((req, res) => hadlePassdword(req, res));
