@@ -19,7 +19,7 @@ app.get(PRODUCT + '/get', (req,res) =>{Product.Getproduct(req,res); });
 app.post(PRODUCT + '/insert', (req,res) =>{Product.InsertProduct(req,res);});
 
 // put route
-app.put(PRODUCT + '/eddit', (req,res) => {Product.editproduct(req,res)});
+app.put(PRODUCT + '/edit', (req,res) => {Product.editproduct(req,res)});
 
 // delete route 
 app.delete(PRODUCT + '/delete', (req,res) =>{{Product.deleteproduct(req,res)}})
