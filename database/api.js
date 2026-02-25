@@ -15,7 +15,7 @@ let user = require('./user_2.js');
 const USER_ROUT = '/user';
 
 // Ragistretion Rout
-app.post(USER_ROUT + '/Ragistre' ,(req,res) =>{user.Ragister(req,res)});
+app.post(USER_ROUT + '/Ragister' ,(req,res) =>{user.Ragister(req,res)});
 
 // Login Rout 
 app.post(USER_ROUT + '/login' ,(req,res) =>{user.Login(req,res)});
