@@ -1,3 +1,4 @@
+
 function Email(rec,sub,mess){
     this.rec=rec;
     this.sub=sub;

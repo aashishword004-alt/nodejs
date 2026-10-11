@@ -1,5 +1,5 @@
 var http = require("http");
-let sequrity = require("./lib/securityy");
+let sequrity = require("../lib/securityy");
 
 function hadlePassdword(req, res) {
     let password = sequrity.generatePassword();
@@ -9,15 +9,11 @@ function hadlePassdword(req, res) {
         res.write(password  + " \n " + conformpassword);
         res.end();
     });
-
-
-
-
 }
 
 let server = http.createServer((req, res) => hadlePassdword(req, res));
 
-let port = 3000;
+let port = 5000;
 server.listen(port, () => {
     console.log("Server is runnig on port " + port)
 })

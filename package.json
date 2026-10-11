@@ -1,10 +1,15 @@
 {
   "dependencies": {
     "argon2": "^0.44.0",
-    "express": "^5.1.0",
+    "crypto": "^1.0.1",
+    "express": "^4.22.1",
     "mysql": "^2.18.1",
     "nodemailer": "^7.0.10",
+<<<<<<< HEAD
     "pug": "^3.0.3",
     "slugify": "^1.6.9"
+=======
+    "pug": "^3.0.3"
+>>>>>>> dad17809b3aef48323b108c7beabb5ebef845041
   }
 }
