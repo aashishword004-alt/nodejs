@@ -1,3 +1,4 @@
+
 const connect = require ('./connection.js');
 const sql = "INSERT INTO category (name,photo,detail) VALUES ('ASHISH','tip.jpg','my name')";
 connect.con.query(sql, (error, result) =>{

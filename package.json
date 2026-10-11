@@ -3,6 +3,8 @@
     "argon2": "^0.44.0",
     "express": "^5.1.0",
     "mysql": "^2.18.1",
-    "nodemailer": "^7.0.10"
+    "nodemailer": "^7.0.10",
+    "pug": "^3.0.3",
+    "slugify": "^1.6.9"
   }
 }
